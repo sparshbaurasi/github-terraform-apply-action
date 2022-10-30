@@ -1,0 +1,25 @@
+name: 'Terraform Apply'
+description: 'Terraform Composite action for terrafrom apply'
+
+inputs:
+  STATEBUCKET:
+    description: 'statebucket name'
+    required: true
+    default: mybucksoham-cicd 
+  ENVIRONMENT:
+    description: 'environment name'
+    required: true
+    default: test
+  REGION:
+    description: 'region'
+    required: true
+    default: "ap-south-1"
+runs:
+  using: "composite"
+  steps:
+    - name: Terraform Init
+      run: terraform init
+      shell: bash
+    - name: Terraform Apply
+      run: terraform apply
+      shell: bash
