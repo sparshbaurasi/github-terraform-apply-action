@@ -14,12 +14,17 @@ inputs:
     description: 'region'
     required: true
     default: "ap-south-1"
+  DIRECTORY:
+    description: 'Working directory'
+    required: true
+    default: "sqs-s3-event"
 runs:
   using: "composite"
   steps:
     - name: Terraform Init
       run: terraform init -backend-config="bucket=${{inputs.STATEBUCKET}}" -backend-config="region=${{inputs.REGION}}"
       shell: bash
+      working-directory: ./service/${{inputs.DIRECTORY}}
     - name: Terraform Apply
       run: terraform apply -auto-approve
       shell: bash
