@@ -28,3 +28,4 @@ runs:
     - name: Terraform Apply
       run: terraform apply -auto-approve
       shell: bash
+      working-directory: ./service/${{inputs.DIRECTORY}}
