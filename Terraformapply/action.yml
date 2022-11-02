@@ -5,24 +5,21 @@ inputs:
   STATE_BUCKET:
     description: 'statebucket name'
     required: true
-    default: mybucksoham-cicd 
   ENVIRONMENT:
     description: 'environment name'
     required: true
-    default: test
   REGION:
     description: 'region'
     required: true
-    default: "ap-south-1"
   DIRECTORY:
     description: 'Working directory'
     required: true
-    default: "s3-sqs-event"
 runs:
   using: "composite"
   steps:
     - name: Terraform Init
-      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATE_BUCKET}}" -backend-config="region=${{inputs.REGION}}"
+      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATE_BUCKET}}" -backend-config="region=${{inputs.REGION}}" && \
+           terraform workspace select ${{inputs.ENVIRONMENT}}
       shell: bash
     - name: Terraform Apply
       run: cd ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
