@@ -22,8 +22,8 @@ runs:
   using: "composite"
   steps:
     - name: Terraform Init
-      run: ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATEBUCKET}}" -backend-config="region=${{inputs.REGION}}"
+      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATEBUCKET}}" -backend-config="region=${{inputs.REGION}}"
       shell: bash
     - name: Terraform Apply
-      run: ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
+      run: cd ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
       shell: bash
