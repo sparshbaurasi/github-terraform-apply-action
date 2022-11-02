@@ -2,7 +2,7 @@ name: 'Terraform Apply'
 description: 'Terraform Composite action for terrafrom apply'
 
 inputs:
-  STATEBUCKET:
+  STATE_BUCKET:
     description: 'statebucket name'
     required: true
     default: mybucksoham-cicd 
@@ -22,7 +22,7 @@ runs:
   using: "composite"
   steps:
     - name: Terraform Init
-      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATEBUCKET}}" -backend-config="region=${{inputs.REGION}}"
+      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATE_BUCKET}}" -backend-config="region=${{inputs.REGION}}"
       shell: bash
     - name: Terraform Apply
       run: cd ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
