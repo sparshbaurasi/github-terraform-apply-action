@@ -18,8 +18,7 @@ runs:
   using: "composite"
   steps:
     - name: Terraform Init
-      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATE_BUCKET}}" -backend-config="region=${{inputs.REGION}}" && \
-           terraform workspace select ${{inputs.ENVIRONMENT}}
+      run: cd ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATE_BUCKET}}" -backend-config="region=${{inputs.REGION}}"
       shell: bash
     - name: Terraform Apply
       run: cd ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
