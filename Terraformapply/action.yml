@@ -22,5 +22,5 @@ runs:
            terraform workspace select ${{inputs.ENVIRONMENT}}
       shell: bash
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: cd ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
       shell: bash
