@@ -17,15 +17,13 @@ inputs:
   DIRECTORY:
     description: 'Working directory'
     required: true
-    default: "sqs-s3-event"
+    default: "s3-sqs-event"
 runs:
   using: "composite"
   steps:
     - name: Terraform Init
-      run: terraform init -backend-config="bucket=${{inputs.STATEBUCKET}}" -backend-config="region=${{inputs.REGION}}"
+      run: ./services/${{inputs.DIRECTORY}} && terraform init -backend-config="bucket=${{inputs.STATEBUCKET}}" -backend-config="region=${{inputs.REGION}}"
       shell: bash
-      working-directory: ./service/${{inputs.DIRECTORY}}
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: ./services/${{inputs.DIRECTORY}} && terraform apply -auto-approve
       shell: bash
-      working-directory: ./service/${{inputs.DIRECTORY}}
